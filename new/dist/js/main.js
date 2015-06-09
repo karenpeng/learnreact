@@ -19722,13 +19722,17 @@ module.exports = require('./lib/React');
 
 },{"./lib/React":29}],157:[function(require,module,exports){
 var React = require('react');
+var Txt = require('./text');
 
 var APP = React.createClass({displayName: "APP",
 
   render: function() {
-    console.log('hello?');
+    //console.log('hello?');
     return (
-      React.createElement("h1", null, "hello")
+      React.createElement("div", null, 
+      React.createElement("h1", null, "hello"), 
+      React.createElement(Txt, {txt: "oooop"})
+      )
     );
   }
 
@@ -19736,14 +19740,105 @@ var APP = React.createClass({displayName: "APP",
 
 module.exports = APP;
 
-},{"react":156}],158:[function(require,module,exports){
-/** @jsx React.DOM */
-
-var APP = require('./components/app');
-console.log(APP);
+},{"./text":160,"react":156}],158:[function(require,module,exports){
 var React = require('react');
-console.log(APP);
+
+var LikeButton = React.createClass({displayName: "LikeButton",
+  getInitialState: function() {
+    return {liked: false};
+  },
+  handleClick: function(event) {
+    this.setState({liked: !this.state.liked});
+  },
+  render: function() {
+    var text = this.state.liked ? 'like' : 'haven\'t liked';
+    return (
+      React.createElement("button", {onClick: this.handleClick}, 
+        "You ", text, " this. Click to toggle."
+      )
+    );
+  }
+});
+
+module.exports = LikeButton;
+
+
+
+},{"react":156}],159:[function(require,module,exports){
+var React = require('react');
+
+var CheckLink = React.createClass({displayName: "CheckLink",
+  render: function() {
+    // This takes any props passed to CheckLink and copies them to <a>
+    return React.createElement("a", React.__spread({},  this.props), '√ ', this.props.children);
+  }
+});
+
+React.render(
+  React.createElement(CheckLink, {href: "/checked.html"}, 
+    "Click here!"
+  ),
+  document.getElementById('example')
+);
+
+
+
+},{"react":156}],160:[function(require,module,exports){
+var React = require('react');
+
+
+var TEXT = React.createClass({displayName: "TEXT",
+  getDefaultProps: function(){
+    return{
+      txt: 'oop yeah'
+    }
+  },
+  getInitialState: function(){
+    return{
+      txt: 'miao'
+    }
+  },
+  propTypes:{
+    txt: React.PropTypes.string
+  },
+  update: function(e){
+    //console.log(e.target.value)
+    //this.props.txt = e.target.value;
+    this.setState({txt: e.target.value})
+  },
+  render: function() {
+    //console.log('hello?');
+    return (
+      React.createElement("div", null, 
+      React.createElement("input", {type: "text", onChange: this.update}), 
+      React.createElement("p", null, this.state.txt), 
+      React.createElement("p", null, this.props.txt)
+      )
+    );
+    // return (
+    //   <h1>world</h1>
+    // );
+  }
+
+});
+
+module.exports = TEXT;
+
+},{"react":156}],161:[function(require,module,exports){
+/** @jsx React.DOM */
+var React = require('react');
+var APP = require('./components/app');
+var TEXT = require('./components/text');
+var Butt = require('./components/button')
+
+require('./components/hierarchy');
 
 React.render(React.createElement(APP, null), document.getElementById('main'));
 
-},{"./components/app":157,"react":156}]},{},[158])
+// React.render(<TEXT />, document.body);
+
+React.render(React.createElement(Butt, null), document.getElementById('wat'));
+
+
+
+},{"./components/app":157,"./components/button":158,"./components/hierarchy":159,"./components/text":160,"react":156}]},{},[161])
