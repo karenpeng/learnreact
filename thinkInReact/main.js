@@ -66,15 +66,13 @@ var SearchBar = React.createClass({
                     placeholder="Search..."
                     value={this.props.filterText}
                     ref="filterTextInput"
-                    onChange={this.handleChange}
-                />
+                    onChange={this.handleChange}/>
                 <p>
                     <input
                         type="checkbox"
                         checked={this.props.inStockOnly}
                         ref="inStockOnlyInput"
-                        onChange={this.handleChange}
-                    />
+                        onChange={this.handleChange}/>
                     {' '}
                     Only show products in stock
                 </p>
@@ -104,13 +102,11 @@ var FilterableProductTable = React.createClass({
                 <SearchBar
                     filterText={this.state.filterText}
                     inStockOnly={this.state.inStockOnly}
-                    onUserInput={this.handleUserInput}
-                />
+                    onUserInput={this.handleUserInput}/>
                 <ProductTable
                     products={this.props.products}
                     filterText={this.state.filterText}
-                    inStockOnly={this.state.inStockOnly}
-                />
+                    inStockOnly={this.state.inStockOnly}/>
             </div>
         );
     }
